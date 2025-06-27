@@ -83,6 +83,24 @@
       audio.currentTime = 0;
       audio.play();
     });
+
+    // 使用 setTimeout 來移除 playing class 確實會有幾個問題：
+    // 1. 時間不準確
+
+    // setTimeout(100ms) 是固定時間，但 CSS 動畫的實際時間可能不是 100ms
+    // 如果 CSS transition 是 200ms，動畫還沒結束就被移除了
+    // 如果 CSS transition 是 50ms，會有 50ms 的延遲才移除 class
+
+    // 2. 快速按鍵時的衝突
+    
+    // 如果用戶在 100ms 內重複按同一個鍵
+    // 第一次的 setTimeout 還沒執行，第二次又設定新的 setTimeout
+    // 可能會造成 class 移除的時機混亂
+
+    // 3. 無法與 CSS 同步
+
+    // CSS 動畫和 JavaScript 計時器是獨立運行的
+    // 無法保證它們完美同步
   </script>
 
 
